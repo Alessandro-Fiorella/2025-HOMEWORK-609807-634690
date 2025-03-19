@@ -1,6 +1,6 @@
 
 
-
+//lallo
 
 /**
  * Una semplice classe che modella un attrezzo.
