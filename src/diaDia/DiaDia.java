@@ -27,7 +27,7 @@ public class DiaDia {
 			"o regalarli se pensi che possano ingraziarti qualcuno.\n\n"+
 			"Per conoscere le istruzioni usa il comando 'aiuto'.";
 	
-	static final private String[] elencoComandi = {"vai", "aiuto", "fine"};
+	static final private String[] elencoComandi = {"vai", "aiuto", "fine", "posa", "prendi", "borsa", "stanza"};
 
 	private Partita partita;
 
@@ -54,7 +54,7 @@ public class DiaDia {
 	 */
 	private boolean processaIstruzione(String istruzione) {
 		Comando comandoDaEseguire = new Comando(istruzione);
-
+		if (comandoDaEseguire.getNome() == null) return false;
 		if (comandoDaEseguire.getNome().equals("fine")) {
 			this.fine(); 
 			return true;
@@ -62,6 +62,14 @@ public class DiaDia {
 			this.vai(comandoDaEseguire.getParametro());
 		else if (comandoDaEseguire.getNome().equals("aiuto"))
 			this.aiuto();
+		else if (comandoDaEseguire.getNome().equals("posa"))
+			this.posa(comandoDaEseguire.getParametro());
+		else if (comandoDaEseguire.getNome().equals("prendi"))
+			this.prendi(comandoDaEseguire.getParametro());
+		else if (comandoDaEseguire.getNome().equals("borsa"))
+			this.borsa();
+		else if (comandoDaEseguire.getNome().equals("stanza"))
+			this.stanza();
 		else
 			System.out.println("Comando sconosciuto");
 		if (this.partita.vinta()) {
@@ -111,5 +119,39 @@ public class DiaDia {
 	public static void main(String[] argc) {
 		DiaDia gioco = new DiaDia();
 		gioco.gioca();
+	}
+	
+	private void prendi (String nomeAttrezzo){
+		Attrezzo attrezzoDaPrendere = partita.getStanzaCorrente().removeAttrezzo(nomeAttrezzo);
+		if(attrezzoDaPrendere != null){
+			if (partita.getBorsa().addAttrezzo(attrezzoDaPrendere)){
+				System.out.println("L'attrezzo " + attrezzoDaPrendere.getNome() + " è stato rimosso dalla stanza e aggiunto alla borsa");
+			}
+			else{
+				partita.getStanzaCorrente().addAttrezzo(attrezzoDaPrendere);
+				System.out.println("L'attrezzo è tornato nella stanza'");
+			}
+		}
+	}
+	
+	private void posa (String nomeAttrezzo){
+		Attrezzo attrezzoDaPosare = partita.getBorsa().removeAttrezzo(nomeAttrezzo);
+		if(attrezzoDaPosare != null){
+			if (partita.getStanzaCorrente().addAttrezzo(attrezzoDaPosare)){
+				System.out.println("L'attrezzo " + attrezzoDaPosare.getNome() + " è stato rimosso dalla borsa e aggiunto alla stanza");
+			}
+			else{
+				partita.getBorsa().addAttrezzo(attrezzoDaPosare);
+				System.out.println("L'attrezzo è tornato nella borsa'");
+			}
+		}
+	}
+	
+	private void borsa(){
+		System.out.println(partita.getBorsa().toString());
+	}
+	
+	private void stanza(){
+		System.out.println(partita.getStanzaCorrente().toString());
 	}
 }

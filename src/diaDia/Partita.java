@@ -16,6 +16,7 @@ public class Partita {
 	static final private int CFU_INIZIALI = 20;
 	private Labirinto labirinto = new Labirinto();
 	private Giocatore giocatore = new Giocatore();
+	private Borsa borsa = new Borsa();
 	private Stanza stanzaCorrente;
 	private Stanza stanzaVincente;
 	private boolean finita;
@@ -68,5 +69,9 @@ public class Partita {
 	
 	public Giocatore getGiocatore() {
 		return this.giocatore;
+	}
+	
+	public Borsa getBorsa(){
+		return this.borsa;
 	}
 }

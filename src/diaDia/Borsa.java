@@ -8,6 +8,8 @@ public class Borsa {
 	
 	public Borsa() {
 		this(DEFAULT_PESO_MAX_BORSA);
+		this.attrezzi = new Attrezzo[10]; // speriamo bastino...
+		this.numeroAttrezzi = 0;
 	}
 	
 	public Borsa(int pesoMax) {
@@ -26,8 +28,40 @@ public class Borsa {
 		return true;
 	}
 	
+	public Attrezzo removeAttrezzo(String nomeAttrezzo) {
+		Attrezzo a = null;
+		
+	    // Controlla se ci sono attrezzi nella borsa
+	    if (this.isEmpty()) {
+	        System.out.println("La borsa è vuota.");
+	        return a;
+	    }
+	    // controlla se la borsa contiene l'attrezzo
+		if(this.hasAttrezzo(nomeAttrezzo)) {
+			
+			int i = 0;
+			while (!attrezzi[i].getNome().equals(nomeAttrezzo)){
+				i++;
+			}
+			a = attrezzi[i];
+			for(int j = i; j < numeroAttrezzi-1; j++){
+				attrezzi[j]=attrezzi[j+1];
+			}
+		    attrezzi[numeroAttrezzi-1] = null;
+			numeroAttrezzi--;
+		}
+		//a questo punto la borsa non ha attrezzi
+		else System.out.println("Non possiedi questo attrezzo.");
+		
+		return a;
+	}
+	
 	public int getPesoMax() {
 		return pesoMax;
+	}
+	
+	public boolean hasAttrezzo(String nomeAttrezzo) {
+		return this.getAttrezzo(nomeAttrezzo)!=null;
 	}
 	
 	public Attrezzo getAttrezzo(String nomeAttrezzo) {
@@ -35,7 +69,6 @@ public class Borsa {
 		for (int i= 0; i<this.numeroAttrezzi; i++)
 			if (this.attrezzi[i].getNome().equals(nomeAttrezzo))
 				a = attrezzi[i];
-
 		return a;
 	}
 	
@@ -43,22 +76,11 @@ public class Borsa {
 		int peso = 0;
 		for (int i= 0; i<this.numeroAttrezzi; i++)
 			peso += this.attrezzi[i].getPeso();
-
 		return peso;
 	}
 	
 	public boolean isEmpty() {
 		return this.numeroAttrezzi == 0;
-	}
-	
-	public boolean hasAttrezzo(String nomeAttrezzo) {
-		return this.getAttrezzo(nomeAttrezzo)!=null;
-	}
-	
-	public Attrezzo removeAttrezzo(String nomeAttrezzo) {
-		Attrezzo a = null;
-		// ---> TODO (implementare questo metodo) <---
-		return a;
 	}
 	
 	public String toString() {
@@ -70,8 +92,12 @@ public class Borsa {
 				s.append(attrezzi[i].toString()+" ");
 		}
 		else
-			s.append("Borsa vuota");
+			s.append("Borsa vuota.");
 		return s.toString();
+	}
+	
+	public Attrezzo[] getAttrezzi(){
+		return attrezzi;
 	}
 }
 

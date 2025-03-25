@@ -173,9 +173,34 @@ public class Stanza {
 	 * @param nomeAttrezzo
 	 * @return true se l'attrezzo e' stato rimosso, false altrimenti
 	 */
-	public boolean removeAttrezzo(Attrezzo attrezzo) {
-		// TODO da implementare
-		return false;
+	public Attrezzo removeAttrezzo(String nomeAttrezzo) {
+		
+		Attrezzo a = null;
+		
+		//controlla se la stanza è vuota
+		if(this.isEmpty()) {
+			System.out.println("La stanza è vuota.");
+			return a;
+		}
+		if(this.hasAttrezzo(nomeAttrezzo)) {
+			
+			int i = 0;
+			while (!attrezzi[i].getNome().equals(nomeAttrezzo)){
+				i++;
+			}
+			a = attrezzi[i];
+			for(int j = i; j < numeroAttrezzi-1; j++){
+				attrezzi[j]=attrezzi[j+1];
+			}
+		    attrezzi[numeroAttrezzi-1] = null;
+			numeroAttrezzi--;
+		}
+		else {
+			System.out.println("L'attrezzo non è presente nella stanza.");
+			return a;
+		}
+		
+		return a;
 	}
 
 
@@ -185,5 +210,8 @@ public class Stanza {
 	    	direzioni[i] = this.direzioni[i];
 	    return direzioni;
     }
-
+	
+	public boolean isEmpty() {
+		return this.numeroAttrezzi == 0;
+	}
 }
