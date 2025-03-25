@@ -21,9 +21,10 @@ public class Partita {
 	private Stanza stanzaVincente;
 	private boolean finita;
 	
-	public Partita(){
-		labirinto = new Labirinto();
-		giocatore = new Giocatore();
+	public Partita(IOConsole ioConsole){
+		ioConsole = new IOConsole();	
+		labirinto = new Labirinto(ioConsole);
+		giocatore = new Giocatore(ioConsole);
 		stanzaCorrente = labirinto.getStanzaIniziale();
 		stanzaVincente = labirinto.getStanzaVincente();
 		this.finita = false;

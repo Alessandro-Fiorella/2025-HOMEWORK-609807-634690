@@ -1,5 +1,6 @@
 package it.uniroma3.diadia.ambienti;
 
+import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 /**
@@ -27,12 +28,16 @@ public class Stanza {
     private int numeroStanzeAdiacenti;
     
 	private String[] direzioni;
+	
+	private IOConsole ioConsole;
+	
     
     /**
      * Crea una stanza. Non ci sono stanze adiacenti, non ci sono attrezzi.
      * @param nome il nome della stanza
      */
-    public Stanza(String nome) {
+    public Stanza(String nome, IOConsole ioConsole) {
+    	this.ioConsole = ioConsole;
         this.nome = nome;
         this.numeroStanzeAdiacenti = 0;
         this.numeroAttrezzi = 0;
@@ -178,7 +183,7 @@ public class Stanza {
 		
 		//controlla se la stanza è vuota
 		if(this.isEmpty()) {
-			System.out.println("La stanza è vuota.");
+			ioConsole.mostraMessaggio("La stanza è vuota.");
 			return a;
 		}
 		if(this.hasAttrezzo(nomeAttrezzo)) {
@@ -195,7 +200,7 @@ public class Stanza {
 			numeroAttrezzi--;
 		}
 		else {
-			System.out.println("L'attrezzo non è presente nella stanza.");
+			ioConsole.mostraMessaggio("L'attrezzo non è presente nella stanza.");
 			return a;
 		}
 		

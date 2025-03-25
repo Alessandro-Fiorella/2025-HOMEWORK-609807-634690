@@ -1,5 +1,6 @@
 package it.uniroma3.diadia.giocatore;
 
+import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class Borsa {
@@ -7,14 +8,15 @@ public class Borsa {
 	private Attrezzo[] attrezzi;
 	private int numeroAttrezzi;
 	private int pesoMax;
+	private IOConsole ioConsole;
 	
-	public Borsa() {
-		this(DEFAULT_PESO_MAX_BORSA);
-		this.attrezzi = new Attrezzo[10]; // speriamo bastino...
-		this.numeroAttrezzi = 0;
+	
+	public Borsa(IOConsole ioConsole) {
+		this(DEFAULT_PESO_MAX_BORSA, ioConsole);
 	}
 	
-	public Borsa(int pesoMax) {
+	public Borsa(int pesoMax, IOConsole ioConsole) {
+		this.ioConsole = ioConsole;
 		this.pesoMax = pesoMax;
 		this.attrezzi = new Attrezzo[10]; // speriamo bastino...
 		this.numeroAttrezzi = 0;
@@ -35,7 +37,7 @@ public class Borsa {
 		
 	    // Controlla se ci sono attrezzi nella borsa
 	    if (this.isEmpty()) {
-	        System.out.println("La borsa è vuota.");
+	        this.ioConsole.mostraMessaggio("La borsa è vuota.");
 	        return a;
 	    }
 	    // controlla se la borsa contiene l'attrezzo
@@ -53,7 +55,7 @@ public class Borsa {
 			numeroAttrezzi--;
 		}
 		//a questo punto la borsa non ha attrezzi
-		else System.out.println("Non possiedi questo attrezzo.");
+		else this.ioConsole.mostraMessaggio("Non possiedi questo attrezzo.");
 		
 		return a;
 	}

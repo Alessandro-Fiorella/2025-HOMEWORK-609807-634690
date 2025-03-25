@@ -1,5 +1,6 @@
 package it.uniroma3.diadia.ambienti;
 
+import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class Labirinto {
@@ -7,25 +8,25 @@ public class Labirinto {
 	private Stanza stanzaIniziale;
 	private Stanza stanzaVincente;
 	
-	public Labirinto() {
-		creaStanze();
+	public Labirinto(IOConsole ioConsole) {
+		creaStanze(ioConsole);
 	}
 	
 	/**
     * Crea tutte le stanze e le porte di collegamento
     */
-	protected void creaStanze() {
+	protected void creaStanze(IOConsole ioConsole) {
 
 		/* crea gli attrezzi */
     	Attrezzo lanterna = new Attrezzo("lanterna",3);
 		Attrezzo osso = new Attrezzo("osso",1);
     	
 		/* crea stanze del labirinto */
-		Stanza atrio = new Stanza("Atrio");
-		Stanza aulaN11 = new Stanza("Aula N11");
-		Stanza aulaN10 = new Stanza("Aula N10");
-		Stanza laboratorio = new Stanza("Laboratorio Campus");
-		Stanza biblioteca = new Stanza("Biblioteca");
+		Stanza atrio = new Stanza("Atrio", ioConsole);
+		Stanza aulaN11 = new Stanza("Aula N11", ioConsole);
+		Stanza aulaN10 = new Stanza("Aula N10", ioConsole);
+		Stanza laboratorio = new Stanza("Laboratorio Campus", ioConsole);
+		Stanza biblioteca = new Stanza("Biblioteca", ioConsole);
 		
 		/* collega le stanze */
 		atrio.impostaStanzaAdiacente("nord", biblioteca);

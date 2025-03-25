@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Stanza;
 
@@ -11,10 +12,12 @@ import org.junit.jupiter.api.BeforeEach;
 
 class TestPartita {
 	private Partita partita;
+	private IOConsole ioConsole = new IOConsole();
+
 	
 	@BeforeEach
 	public void setUp() {
-		partita = new Partita();
+		partita = new Partita(ioConsole);
 	}
 	
 	@Test
@@ -57,14 +60,14 @@ class TestPartita {
 	@Test
 	void testPartitaNonTerminata() {
 		partita.getGiocatore().setCfu(15);
-		partita.setStanzaCorrente(new Stanza("Nuova Stanza"));
+		partita.setStanzaCorrente(new Stanza("Nuova Stanza",ioConsole));
 		assertFalse(partita.isFinita());
 	}
 	
 	// Test: funzione setStanzaCorrente
 	@Test
 	void testImpostaStanzaCorrente() {	    
-	    Stanza nuovaStanza = new Stanza("Nuova Stanza");
+	    Stanza nuovaStanza = new Stanza("Nuova Stanza",ioConsole);
 	    partita.setStanzaCorrente(nuovaStanza);	    
 	    assertEquals("Nuova Stanza", partita.getStanzaCorrente().getNome(), "La stanza corrente dovrebbe essere la 'Nuova Stanza'");
 	}

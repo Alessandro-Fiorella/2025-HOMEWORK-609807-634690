@@ -1,5 +1,7 @@
 package it.uniroma3.diadia.giocatore;
 
+import it.uniroma3.diadia.IOConsole;
+
 public class Giocatore {
 	
 	static final private int CFU_INIZIALI = 20;
@@ -7,14 +9,14 @@ public class Giocatore {
 	private Borsa borsa;
 	
 	
-	public Giocatore () {
+	public Giocatore (IOConsole ioConsole) {
 		this.cfu = CFU_INIZIALI;
-		this.borsa = new Borsa();
+		this.borsa = new Borsa(ioConsole);
 	}
 	
-	public Giocatore (int peso) {
+	public Giocatore (int peso, IOConsole ioConsole) {
 		this.cfu = CFU_INIZIALI;
-		this.borsa = new Borsa(peso);
+		this.borsa = new Borsa(peso, ioConsole);
 	}
 	
 	public int getCfu() {

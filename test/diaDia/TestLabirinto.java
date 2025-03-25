@@ -4,14 +4,16 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.ambienti.Labirinto;
 
 class TestLabirinto {
 	
+	private IOConsole ioConsole = new IOConsole();
 	private Labirinto labirinto;
 	@BeforeEach
 	public void setUp() {
-		labirinto = new Labirinto();
+		labirinto = new Labirinto(ioConsole);
 	}
 	// Test: Inizio partita e creaStanze
 		

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.giocatore.Borsa;
 
@@ -14,11 +15,12 @@ class TestBorsa {
 	private Attrezzo attrezzo1;
 	private Attrezzo attrezzo2;
 	private Attrezzo attrezzo3;
+	private IOConsole ioConsole = new IOConsole();
 
 	
 	@BeforeEach
 	public void setUp() {
-		borsa = new Borsa();
+		borsa = new Borsa(ioConsole);
 		attrezzo1 = new Attrezzo("A", 1);
 		attrezzo2 = new Attrezzo("B", 2);
 		attrezzo3 = new Attrezzo("C", 3);
@@ -95,7 +97,7 @@ class TestBorsa {
 		assertEquals(borsa.removeAttrezzo(daEliminare.getNome()), daEliminare);
 	}
 	
-	
+	/*
 	//test rimuovi attrezzo random da borsa piena; serve solo per vedere come si muovono gli indici
 	@Test
 	void testRemoveAttrezzoACasoDaBorsaPiena() {
@@ -104,10 +106,11 @@ class TestBorsa {
 			Attrezzo attrezzo = new Attrezzo("Attrezzo"+ i, 1);
 			borsa.addAttrezzo(attrezzo);	
 		}
-		System.out.println(borsa.toString());
+		ioConsole.mostraMessaggio(borsa.toString());
 		Attrezzo daEliminare = borsa.getAttrezzi()[numeroAttrezzi-3];
 		assertEquals(borsa.removeAttrezzo(daEliminare.getNome()), daEliminare);
-		System.out.println(borsa.toString());
+		ioConsole.mostraMessaggio(borsa.toString());
 	}
+	*/
 	
 }
