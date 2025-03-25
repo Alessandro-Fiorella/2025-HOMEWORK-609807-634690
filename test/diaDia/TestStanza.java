@@ -79,7 +79,7 @@ class TestStanza {
 		assertFalse(stanzaIniziale.addAttrezzo(attrezzo1), "Dovrebbe essere false dato che la stanza è piena");
 	}
 	@Test
-	void testRemoveAttrezzoSuBorsaVuota() {
+	void testRemoveAttrezzoSuStanzaVuota() {
 		stanzaIniziale.removeAttrezzo(attrezzo1.getNome());
 		assertFalse(stanzaIniziale.hasAttrezzo(attrezzo1.getNome()));
 	}
