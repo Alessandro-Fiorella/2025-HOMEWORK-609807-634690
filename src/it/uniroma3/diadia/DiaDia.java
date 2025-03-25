@@ -1,7 +1,10 @@
-package diaDia;
+package it.uniroma3.diadia;
 
 
 import java.util.Scanner;
+
+import it.uniroma3.diadia.ambienti.Stanza;
+import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 /**
  * Classe principale di diadia, un semplice gioco di ruolo ambientato al dia.
@@ -27,10 +30,10 @@ public class DiaDia {
 			"o regalarli se pensi che possano ingraziarti qualcuno.\n\n"+
 			"Per conoscere le istruzioni usa il comando 'aiuto'.";
 	
-	static final private String[] elencoComandi = {"vai", "aiuto", "fine", "posa", "prendi", "borsa", "stanza"};
+	static final private String[] elencoComandi = {"vai", "aiuto", "fine", "posa", "prendi", "borsa", "stanza", "cfu"};
 
 	private Partita partita;
-
+	
 	public DiaDia() {
 		this.partita = new Partita();
 	}
@@ -70,6 +73,8 @@ public class DiaDia {
 			this.borsa();
 		else if (comandoDaEseguire.getNome().equals("stanza"))
 			this.stanza();
+		else if (comandoDaEseguire.getNome().equals("cfu"))
+			this.cfu();
 		else
 			System.out.println("Comando sconosciuto");
 		if (this.partita.vinta()) {
@@ -103,8 +108,7 @@ public class DiaDia {
 			System.out.println("Direzione inesistente");
 		else {
 			this.partita.setStanzaCorrente(prossimaStanza);
-			int cfu = this.partita.getGiocatore().getCfu();
-			this.partita.getGiocatore().setCfu(cfu--);
+			this.partita.getGiocatore().togliCfu();
 		}
 		System.out.println(partita.getStanzaCorrente().getDescrizione());
 	}
@@ -114,11 +118,6 @@ public class DiaDia {
 	 */
 	private void fine() {
 		System.out.println("Grazie di aver giocato!");  // si desidera smettere
-	}
-
-	public static void main(String[] argc) {
-		DiaDia gioco = new DiaDia();
-		gioco.gioca();
 	}
 	
 	private void prendi (String nomeAttrezzo){
@@ -154,4 +153,21 @@ public class DiaDia {
 	private void stanza(){
 		System.out.println(partita.getStanzaCorrente().toString());
 	}
+	
+	private void cfu() {
+		System.out.println("Hai " + partita.getGiocatore().getCfu() + " cfu");
+	}
+	
+	public static void main(String[] argc) {
+		DiaDia gioco = new DiaDia();
+		IOConsole ioConsole = new IOConsole();
+		gioco.gioca();
+	}
+	
+	
+	
 }
+
+
+
+

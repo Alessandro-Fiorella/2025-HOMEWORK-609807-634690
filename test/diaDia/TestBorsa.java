@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.giocatore.Borsa;
+
 class TestBorsa {
 
 	private Borsa borsa;
@@ -92,7 +95,7 @@ class TestBorsa {
 		assertEquals(borsa.removeAttrezzo(daEliminare.getNome()), daEliminare);
 	}
 	
-	/*
+	
 	//test rimuovi attrezzo random da borsa piena; serve solo per vedere come si muovono gli indici
 	@Test
 	void testRemoveAttrezzoACasoDaBorsaPiena() {
@@ -106,5 +109,5 @@ class TestBorsa {
 		assertEquals(borsa.removeAttrezzo(daEliminare.getNome()), daEliminare);
 		System.out.println(borsa.toString());
 	}
-	*/
+	
 }
