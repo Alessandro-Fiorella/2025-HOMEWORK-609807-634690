@@ -74,4 +74,8 @@ public class Partita {
 	public Borsa getBorsa() {
 		return giocatore.getBorsa();
 	}
+	
+	public Boolean giocatoreisVivo() {
+		return this.getGiocatore().getCfu() != 0;
+	}
 }

@@ -1,8 +1,7 @@
-package it.uniroma3.diadia;
+package it.uniroma3.diadia.comandi;
 
-
-
-import java.util.Scanner;
+import it.uniroma3.diadia.IOConsole;
+import it.uniroma3.diadia.Partita;
 
 /**
  * Questa classe modella un comando.
@@ -16,7 +15,18 @@ import java.util.Scanner;
  * @version base
  */
 
-public class Comando {
+public interface Comando {
+	
+	/*** esecuzione del comando */
+	public void esegui(Partita partita, IOConsole ioConsole);
+	
+	/*** set parametro del comando */
+	public void setParametro(String parametro);
+}
+
+
+
+/*public class Comando {
 
     private String nome;
     private String parametro;
@@ -44,4 +54,4 @@ public class Comando {
     public boolean sconosciuto() {
         return (this.nome == null);
     }
-}
+}*/
