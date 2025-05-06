@@ -8,20 +8,21 @@ public class ComandoPosa implements Comando{
 	
 	private String nomeAttrezzo;
 	
-	public ComandoPosa (IOConsole ioConsole) {
-		
-	}
 	
 	@Override
 	public void esegui (Partita partita, IOConsole ioConsole){
-		Attrezzo attrezzoDaPosare = partita.getBorsa().removeAttrezzo(nomeAttrezzo);
-		if(attrezzoDaPosare != null){
-			if (partita.getStanzaCorrente().addAttrezzo(attrezzoDaPosare)){
+		if (nomeAttrezzo == null) {	// Se nel comando "posa x" l'attrezzo non è stato specificato
+			ioConsole.mostraMessaggio("Devi specificare l'attrezzo da posare!");
+			return;
+		}
+		Attrezzo attrezzoDaPosare = partita.getBorsa().removeAttrezzo(nomeAttrezzo);	// Rimuove l'attrezzo dalla borsa
+		if(attrezzoDaPosare != null){	// Se l'attrezzo è stato effettivamente trovato
+			if (partita.getStanzaCorrente().addAttrezzo(attrezzoDaPosare)){	// Se c'è spazio lo mette nella stanza (lo posa)
 				ioConsole.mostraMessaggio("L'attrezzo " + attrezzoDaPosare.getNome() + " è stato rimosso dalla borsa e aggiunto alla stanza");
 			}
-			else{
+			else{	// Altrimenti no
 				partita.getBorsa().addAttrezzo(attrezzoDaPosare);
-				ioConsole.mostraMessaggio("L'attrezzo è tornato nella borsa'");
+				ioConsole.mostraMessaggio("L'attrezzo è tornato nella borsa perchè la stanza è piena");
 			}
 		}
 	}
@@ -29,5 +30,15 @@ public class ComandoPosa implements Comando{
 	@Override
 	public void setParametro(String parametro) {
 		this.nomeAttrezzo = parametro;
+	}
+	
+	@Override
+	public String getParametro() {
+		return nomeAttrezzo;
+	}
+	
+	@Override
+	public String getNome() {
+		return "posa";
 	}
 }

@@ -8,9 +8,6 @@ public class ComandoVai implements Comando {
 	
 	private String direzione;
 	
-	public ComandoVai (IOConsole ioConsole) {
-		
-	}
 
 	/*** esecuzione del comando */
 	@Override
@@ -18,7 +15,7 @@ public class ComandoVai implements Comando {
     	Stanza stanzaCorrente = partita.getStanzaCorrente();
     	Stanza prossimaStanza = null;
     	if (direzione==null) {
-    		ioConsole.mostraMessaggio("Dove vuoi andare? Devi specificare una direzione");
+    		ioConsole.mostraMessaggio("Dove vuoi andare? Riscrivi vai specificando una posizione!"); //TODO: implementare in modo che che chiesa "in che direzione?"
         	return;
     	}
     	prossimaStanza = stanzaCorrente.getStanzaAdiacente(this.direzione);
@@ -35,4 +32,14 @@ public class ComandoVai implements Comando {
 	public void setParametro(String parametro) {
 		this.direzione = parametro;
 	}
+	@Override
+	public String getParametro() {
+		return direzione;
+	}
+	
+	@Override
+	public String getNome() {
+		return "vai";
+	}
 }
+

@@ -69,11 +69,16 @@ public class Borsa {
 	}
 	
 	public Attrezzo getAttrezzo(String nomeAttrezzo) {
-		Attrezzo a = null;
 		for (int i= 0; i<this.numeroAttrezzi; i++)
 			if (this.attrezzi[i].getNome().equals(nomeAttrezzo))
-				a = attrezzi[i];
-		return a;
+				return attrezzi[i];
+		
+		this.ioConsole.mostraMessaggio("Non hai questo attrezzo");
+		return null;
+	}
+	
+	public Attrezzo[] getAttrezzi(){
+		return attrezzi;
 	}
 	
 	public int getPeso() {
@@ -100,8 +105,6 @@ public class Borsa {
 		return s.toString();
 	}
 	
-	public Attrezzo[] getAttrezzi(){
-		return attrezzi;
-	}
+	
 }
 

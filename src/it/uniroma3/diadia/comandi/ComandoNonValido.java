@@ -2,37 +2,25 @@ package it.uniroma3.diadia.comandi;
 
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
-import it.uniroma3.diadia.ambienti.Stanza;
 
 public class ComandoNonValido implements Comando {
-	
-private String direzione;
-	
-	public ComandoNonValido (IOConsole ioConsole) {
 		
-	}
-
 	/*** esecuzione del comando */
 	@Override
 	public void esegui(Partita partita, IOConsole ioConsole) {
-    	Stanza stanzaCorrente = partita.getStanzaCorrente();
-    	Stanza prossimaStanza = null;
-    	if (direzione==null) {
-    		ioConsole.mostraMessaggio("Dove vuoi andare? Devi specificare una direzione");
-        	return;
-    	}
-    	prossimaStanza = stanzaCorrente.getStanzaAdiacente(this.direzione);
-    	if (prossimaStanza==null) {
-    		ioConsole.mostraMessaggio("Direzione inesistente");
-	        return;
-	    }
-    	partita.setStanzaCorrente(prossimaStanza);
-    	ioConsole.mostraMessaggio(partita.getStanzaCorrente().getNome());
-    	partita.getGiocatore().togliCfu();
+    	ioConsole.mostraMessaggio("Comando non valido, riprova!");
 	}
 	
 	@Override
-	public void setParametro(String parametro) {
-		this.direzione = parametro;
+	public void setParametro(String parametro) {}
+	
+	@Override
+	public String getParametro() {
+		return null;
+	}
+	
+	@Override
+	public String getNome() {
+		return "non valido";
 	}
 }

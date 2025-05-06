@@ -22,7 +22,6 @@ public class Partita {
 	private boolean finita;
 	
 	public Partita(IOConsole ioConsole){
-		ioConsole = new IOConsole();	
 		labirinto = new Labirinto(ioConsole);
 		giocatore = new Giocatore(ioConsole);
 		stanzaCorrente = labirinto.getStanzaIniziale();
