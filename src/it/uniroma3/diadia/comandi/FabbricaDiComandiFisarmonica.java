@@ -1,12 +1,12 @@
 package it.uniroma3.diadia.comandi;
 
-import it.uniroma3.diadia.IOConsole;
+import it.uniroma3.diadia.IO;
 
 
 
 public class FabbricaDiComandiFisarmonica implements FabbricaDiComandi {
 	
-	public Comando costruisciComando(String istruzione, IOConsole ioConsole) {
+	public Comando costruisciComando(String istruzione, IO ioConsole) {
 		String nomeComando = null;
 		String parametro = null;
 		Comando comando = null;

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
@@ -15,7 +16,7 @@ class TestStanza {
 	private Attrezzo attrezzo1;
 	private Attrezzo attrezzo2;
 	private Attrezzo attrezzo3;
-	private IOConsole ioConsole = new IOConsole();
+	private IO ioConsole = new IOConsole();
 	
 	@BeforeEach
 	public void setUp() {

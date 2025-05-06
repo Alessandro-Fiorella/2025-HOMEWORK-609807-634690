@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandi;
@@ -17,7 +18,7 @@ class TestFabbricaDiComandiFisarmonica {
 	String parametro;
 	Comando comando;
 	
-	private IOConsole ioConsole = new IOConsole();
+	private IO ioConsole = new IOConsole();
 	
 	@BeforeEach
 	public void setUp() {
@@ -25,10 +26,52 @@ class TestFabbricaDiComandiFisarmonica {
 	}
 	
 	@Test
-	void test() {
+	void testComandoVai() {
 		nomeComando = "vai";
 		comando = factory.costruisciComando(nomeComando, ioConsole);
-		
+		assertEquals(comando.getNome(), "vai");
+	}
+	
+	@Test
+	void testComandoPrendi() {
+		nomeComando = "prendi";
+		comando = factory.costruisciComando(nomeComando, ioConsole);
+		assertEquals(comando.getNome(), "prendi");
+	}
+	
+	@Test
+	void testComandoPosa() {
+		nomeComando = "posa";
+		comando = factory.costruisciComando(nomeComando, ioConsole);
+		assertEquals(comando.getNome(), "posa");
+	}
+	
+	@Test
+	void testComandoGuarda() {
+		nomeComando = "guarda";
+		comando = factory.costruisciComando(nomeComando, ioConsole);
+		assertEquals(comando.getNome(), "guarda");
+	}
+	
+	@Test
+	void testComandoFine() {
+		nomeComando = "fine";
+		comando = factory.costruisciComando(nomeComando, ioConsole);
+		assertEquals(comando.getNome(), "fine");
+	}
+	
+	@Test
+	void testComandoAiuto() {
+		nomeComando = "aiuto";
+		comando = factory.costruisciComando(nomeComando, ioConsole);
+		assertEquals(comando.getNome(), "aiuto");
+	}
+	
+	@Test
+	void testComandoNonValido() {
+		nomeComando = "caso";
+		comando = factory.costruisciComando(nomeComando, ioConsole);
+		assertEquals(comando.getNome(), "non valido");
 	}
 
 }

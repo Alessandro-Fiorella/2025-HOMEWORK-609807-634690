@@ -1,13 +1,13 @@
 package it.uniroma3.diadia.comandi;
 
-import it.uniroma3.diadia.IOConsole;
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 
 public class ComandoNonValido implements Comando {
 		
 	/*** esecuzione del comando */
 	@Override
-	public void esegui(Partita partita, IOConsole ioConsole) {
+	public void esegui(Partita partita, IO ioConsole) {
     	ioConsole.mostraMessaggio("Comando non valido, riprova!");
 	}
 	

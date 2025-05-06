@@ -1,6 +1,6 @@
 package it.uniroma3.diadia.comandi;
 
-import it.uniroma3.diadia.IOConsole;
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
@@ -10,7 +10,7 @@ public class ComandoPrendi implements Comando {
 	
 	
 	@Override	
-	public void esegui(Partita partita, IOConsole ioConsole) {
+	public void esegui(Partita partita, IO ioConsole) {
 		if (nomeAttrezzo == null) {
 			ioConsole.mostraMessaggio("Devi specificare l'attrezzo da prendere!");
 			return;

@@ -1,8 +1,5 @@
 package it.uniroma3.diadia;
 
-import it.uniroma3.diadia.ambienti.Stanza;
-
-import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandi;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
@@ -32,9 +29,9 @@ public class DiaDia {
 			"Per conoscere le istruzioni usa il comando 'aiuto'.";
 	
 	private Partita partita;
-	private IOConsole ioConsole;
+	private IO ioConsole;
 	
-	public DiaDia(IOConsole ioConsole) {
+	public DiaDia(IO ioConsole) {
 		this.ioConsole = ioConsole;
 		this.partita = new Partita(ioConsole);
 	}
@@ -74,7 +71,7 @@ public class DiaDia {
 }
 
 	public static void main(String[] argc) {
-		IOConsole ioConsole = new IOConsole();
+		IO ioConsole = new IOConsole();
 		DiaDia gioco = new DiaDia(ioConsole);
 		gioco.gioca();
 	}

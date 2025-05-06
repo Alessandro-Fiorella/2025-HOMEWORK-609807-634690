@@ -1,6 +1,6 @@
 package it.uniroma3.diadia.comandi;
 
-import it.uniroma3.diadia.IOConsole;
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Stanza;
 
@@ -11,7 +11,7 @@ public class ComandoVai implements Comando {
 
 	/*** esecuzione del comando */
 	@Override
-	public void esegui(Partita partita, IOConsole ioConsole) {
+	public void esegui(Partita partita, IO ioConsole) {
     	Stanza stanzaCorrente = partita.getStanzaCorrente();
     	Stanza prossimaStanza = null;
     	if (direzione==null) {
