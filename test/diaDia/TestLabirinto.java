@@ -9,33 +9,32 @@ import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.ambienti.Labirinto;
 
 class TestLabirinto {
-	
+
 	private IO ioConsole = new IOConsole();
 	private Labirinto labirinto;
+
 	@BeforeEach
 	public void setUp() {
 		labirinto = new Labirinto(ioConsole);
 	}
-	// Test: Inizio partita e creaStanze
-		
+
 	@Test
 	void testStanzaIniziale() {
 		assertNotNull(labirinto.getStanzaIniziale());
-	  	assertEquals("Atrio", labirinto.getStanzaIniziale().getNome(), "La stanza corrente dovrebbe essere l'atrio");
+		assertEquals("Cortile", labirinto.getStanzaIniziale().getNome(), 
+				"La stanza iniziale dovrebbe essere il Cortile");
 	}
+
 	@Test
 	void testStanzaVincente() {
 		assertNotNull(labirinto.getStanzaVincente());
-	    assertEquals("Biblioteca", labirinto.getStanzaVincente().getNome(), 
-	    		"La stanza vincente dovrebbe essere la biblioteca");
-	}
-	
-	@Test
-	void testStanzeAdiacentiAStanzaIniziale() {
-		assertEquals("Biblioteca", labirinto.getStanzaIniziale().getStanzaAdiacente("nord").getNome());
-		assertEquals("Aula N10", labirinto.getStanzaIniziale().getStanzaAdiacente("sud").getNome());
-		assertEquals("Aula N11", labirinto.getStanzaIniziale().getStanzaAdiacente("est").getNome());
-		assertEquals("Laboratorio Campus", labirinto.getStanzaIniziale().getStanzaAdiacente("ovest").getNome());
+		assertEquals("Aula Magna", labirinto.getStanzaVincente().getNome(), 
+				"La stanza vincente dovrebbe essere la Aula Magna");
 	}
 
+	@Test
+	void testStanzeAdiacentiAStanzaIniziale() {
+		assertEquals("Mensa", labirinto.getStanzaIniziale().getStanzaAdiacente("nord").getNome(), 
+				labirinto.getStanzaIniziale().getStanzaAdiacente("nord").getNome());
+	}
 }

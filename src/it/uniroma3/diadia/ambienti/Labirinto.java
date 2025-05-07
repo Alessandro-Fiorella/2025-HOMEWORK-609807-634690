@@ -17,39 +17,35 @@ public class Labirinto {
     */
 	protected void creaStanze(IO ioConsole) {
 
-		/* crea gli attrezzi */
-    	Attrezzo lanterna = new Attrezzo("lanterna",3);
-		Attrezzo osso = new Attrezzo("osso",1);
-    	
-		/* crea stanze del labirinto */
-		Stanza atrio = new Stanza("Atrio", ioConsole);
-		Stanza aulaN11 = new Stanza("Aula N11", ioConsole);
-		Stanza aulaN10 = new Stanza("Aula N10", ioConsole);
-		Stanza laboratorio = new Stanza("Laboratorio Campus", ioConsole);
-		Stanza biblioteca = new Stanza("Biblioteca", ioConsole);
-		
-		/* collega le stanze */
-		atrio.impostaStanzaAdiacente("nord", biblioteca);
-		atrio.impostaStanzaAdiacente("est", aulaN11);
-		atrio.impostaStanzaAdiacente("sud", aulaN10);
-		atrio.impostaStanzaAdiacente("ovest", laboratorio);
-		aulaN11.impostaStanzaAdiacente("est", laboratorio);
-		aulaN11.impostaStanzaAdiacente("ovest", atrio);
-		aulaN10.impostaStanzaAdiacente("nord", atrio);
-		aulaN10.impostaStanzaAdiacente("est", aulaN11);
-		aulaN10.impostaStanzaAdiacente("ovest", laboratorio);
-		laboratorio.impostaStanzaAdiacente("est", atrio);
-		laboratorio.impostaStanzaAdiacente("ovest", aulaN11);
-		biblioteca.impostaStanzaAdiacente("sud", atrio);
+	    /* crea gli attrezzi */
+	    Attrezzo chiave = new Attrezzo("chiave", 1);
+	    Attrezzo libro = new Attrezzo("libro", 2);
 
-        /* pone gli attrezzi nelle stanze */
-		aulaN10.addAttrezzo(lanterna);
-		atrio.addAttrezzo(osso);
+	    /* crea stanze del labirinto */
+	    Stanza cortile = new Stanza("Cortile", ioConsole);
+	    Stanza mensa = new Stanza("Mensa", ioConsole);
+	    Stanza segreteria = new Stanza("Segreteria", ioConsole);
+	    Stanza aulaStudio = new Stanza("Aula Studio", ioConsole);
+	    Stanza aulaMagna = new StanzaBloccata("Aula Magna", "est", "chiave", ioConsole); // bloccata ad est
 
-		// il gioco comincia nell'atrio
-        setStanzaIniziale(atrio);  
-		setStanzaVincente(biblioteca);
-    }
+	    /* collega le stanze */
+	    cortile.impostaStanzaAdiacente("nord", mensa);
+	    mensa.impostaStanzaAdiacente("sud", cortile);
+	    mensa.impostaStanzaAdiacente("est", segreteria);
+	    segreteria.impostaStanzaAdiacente("ovest", mensa);
+	    segreteria.impostaStanzaAdiacente("est", aulaStudio);
+	    aulaStudio.impostaStanzaAdiacente("ovest", segreteria);
+	    aulaStudio.impostaStanzaAdiacente("est", aulaMagna);
+	    aulaMagna.impostaStanzaAdiacente("ovest", aulaStudio);
+
+	    /* pone gli attrezzi nelle stanze */
+	    cortile.addAttrezzo(chiave);
+	    mensa.addAttrezzo(libro);
+
+	    /* imposta inizio e fine */
+	    setStanzaIniziale(cortile);
+	    setStanzaVincente(aulaMagna);
+	}
 	
 	public Stanza getStanzaIniziale() {
 		return stanzaIniziale;

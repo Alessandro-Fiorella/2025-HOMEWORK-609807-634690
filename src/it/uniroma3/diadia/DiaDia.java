@@ -55,28 +55,29 @@ public class DiaDia {
 	 
 	private boolean processaIstruzione(String istruzione) {
 	
-	Comando comandoDaEseguire;
-	FabbricaDiComandi factory = new FabbricaDiComandiFisarmonica();
-	
-	comandoDaEseguire = factory.costruisciComando(istruzione, ioConsole);
-	comandoDaEseguire.esegui(this.partita, ioConsole);
-	
-	if (this.partita.vinta())
-		ioConsole.mostraMessaggio("Hai vinto!");
+		Comando comandoDaEseguire;
+		FabbricaDiComandi factory = new FabbricaDiComandiFisarmonica();
 		
-	if (!this.partita.giocatoreisVivo())
-		ioConsole.mostraMessaggio("Hai esaurito i CFU...");
+		comandoDaEseguire = factory.costruisciComando(istruzione, ioConsole);
+		comandoDaEseguire.esegui(this.partita, ioConsole);
 		
-	return this.partita.isFinita();
-}
+		if (this.partita.vinta())
+			ioConsole.mostraMessaggio("Hai vinto!");
+			
+		if (!this.partita.giocatoreisVivo())
+			ioConsole.mostraMessaggio("Hai esaurito i CFU...");
+			
+		return this.partita.isFinita();
+	}
+	
+	public Partita getPartita() {
+		return partita;
+	}
 
 	public static void main(String[] argc) {
 		IO ioConsole = new IOConsole();
 		DiaDia gioco = new DiaDia(ioConsole);
 		gioco.gioca();
 	}
-	
-	
-	
 }
 
