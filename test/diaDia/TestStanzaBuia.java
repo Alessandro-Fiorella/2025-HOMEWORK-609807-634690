@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.uniroma3.diadia.IO;
-import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.ambienti.StanzaBuia;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
@@ -27,13 +25,11 @@ class TestStanzaBuia {
 	Punto p2 = new Punto(1,1);
 	String a = "A";
 	String b = "A";
-	
-	private IO ioConsole = new IOConsole();
-	
+		
 	
 	@BeforeEach
 	public void setUp() {
-		stanzaBuia = new StanzaBuia("prova", "A", ioConsole);
+		stanzaBuia = new StanzaBuia("prova", "A");
 		attrezzo1 = new Attrezzo("A", 1);
 		attrezzo2 = new Attrezzo("B", 2);
 		stanzaBuia.addAttrezzo(attrezzo1);

@@ -1,5 +1,8 @@
 package it.uniroma3.diadia.ambienti;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
@@ -21,8 +24,8 @@ public class StanzaProtected {
 	
 	protected String nome;
 	
-    protected Attrezzo[] attrezzi;
-    protected int numeroAttrezzi;
+    protected List<Attrezzo> attrezzi;
+    protected int massimoAttrezzi;
     
     protected Stanza[] stanzeAdiacenti;
     protected int numeroStanzeAdiacenti;
@@ -37,13 +40,13 @@ public class StanzaProtected {
      * @param nome il nome della stanza
      */
     public StanzaProtected(String nome, int massimoAttrezzi, IO ioConsole) {
+    	this.nome = nome;
+    	this.massimoAttrezzi = massimoAttrezzi;
     	this.ioConsole = ioConsole;
-        this.nome = nome;
         this.numeroStanzeAdiacenti = 0;
-        this.numeroAttrezzi = 0;
         this.direzioni = new String[NUMERO_MASSIMO_DIREZIONI];
         this.stanzeAdiacenti = new Stanza[NUMERO_MASSIMO_DIREZIONI];
-        this.attrezzi = new Attrezzo[massimoAttrezzi];
+        this.attrezzi = new ArrayList<>();
     }
     
     public StanzaProtected(String nome, IO ioConsole) {
@@ -84,6 +87,101 @@ public class StanzaProtected {
 	}
 
     /**
+     * Mette un attrezzo nella stanza.
+     * @param attrezzo l'attrezzo da mettere nella stanza.
+     * @return true se riesce ad aggiungere l'attrezzo, false atrimenti.
+     */
+    public boolean addAttrezzo(Attrezzo attrezzo) {
+    	if (attrezzi.size() < massimoAttrezzi) {
+    		this.attrezzi.add(attrezzo);
+        	return true;
+    	}
+    	return false;
+    }
+    
+    /**
+	 * Rimuove un attrezzo dalla stanza (ricerca in base al nome).
+	 * @param nomeAttrezzo
+	 * @return true se l'attrezzo e' stato rimosso, false altrimenti
+	 */
+	public Attrezzo removeAttrezzo(String nomeAttrezzo) {
+		Attrezzo output = null;
+
+		// controlla se la stanza è vuota
+		if (this.isEmpty()) {
+			ioConsole.mostraMessaggio("La stanza è vuota.");
+			return output;
+		}
+
+		output = this.getAttrezzo(nomeAttrezzo); // Se lo ha lo prende
+		if (output != null) {
+			attrezzi.remove(output); // Le rimozione è semplice grazie alla lista
+		}
+		// a questo punto la borsa non ha attrezzi
+		else
+			this.ioConsole.mostraMessaggio("Non possiedi questo attrezzo.");
+
+		return output;
+	}
+
+
+    /**
+	* Controlla se un attrezzo esiste nella stanza (uguaglianza sul nome).
+	* @return true se l'attrezzo esiste nella stanza, false altrimenti.
+	*/
+	public boolean hasAttrezzo(String nomeAttrezzo) {
+		boolean trovato;
+		trovato = false;
+		for (Attrezzo attrezzo : this.attrezzi) {
+			if (attrezzo != null) {
+				if (attrezzo.getNome().equals(nomeAttrezzo))
+					trovato = true;
+			}
+		}
+		return trovato;
+	}
+
+	/**
+     * Restituisce l'attrezzo nomeAttrezzo se presente nella stanza.
+     * @param In overload: String nomeAttrezzo, Attrezzo attrezzo, Int (indice)
+	 * @return l'attrezzo presente nella stanza.
+     * 		   null se l'attrezzo non e' presente.
+	 */
+	public Attrezzo getAttrezzo(String nomeAttrezzo) {
+		for (Attrezzo attrezzo : this.attrezzi) {
+			if (attrezzo.getNome().equals(nomeAttrezzo))
+				return attrezzo;
+		}
+		return null;
+	}
+	
+	public Attrezzo getAttrezzo(Attrezzo attrezzo) {
+		for (Attrezzo a : this.attrezzi) {
+			if (a.equals(attrezzo))
+				return a;
+		}
+		return null;	
+	}
+	
+	public Attrezzo getAttrezzo(int indice) {
+		if (attrezzi.size() > indice) {	// Evito l'exception
+			return attrezzi.get(indice);
+		}
+		return null;	
+	}
+
+	public String[] getDirezioni() {
+		String[] direzioni = new String[this.numeroStanzeAdiacenti];
+	    for(int i=0; i<this.numeroStanzeAdiacenti; i++)
+	    	direzioni[i] = this.direzioni[i];
+	    return direzioni;
+    }
+	
+	public boolean isEmpty() {
+		return attrezzi.size() == 0;
+	}
+	
+	/**
      * Restituisce la nome della stanza.
      * @return il nome della stanza
      */
@@ -103,27 +201,11 @@ public class StanzaProtected {
      * Restituisce la collezione di attrezzi presenti nella stanza.
      * @return la collezione di attrezzi nella stanza.
      */
-    public Attrezzo[] getAttrezzi() {
+    public List<Attrezzo> getAttrezzi() {
         return this.attrezzi;
     }
-
+    
     /**
-     * Mette un attrezzo nella stanza.
-     * @param attrezzo l'attrezzo da mettere nella stanza.
-     * @return true se riesce ad aggiungere l'attrezzo, false atrimenti.
-     */
-    public boolean addAttrezzo(Attrezzo attrezzo) {
-        if (this.numeroAttrezzi < attrezzi.length) { 
-        	this.attrezzi[numeroAttrezzi] = attrezzo;
-        	this.numeroAttrezzi++;
-        	return true;
-        }
-        else {
-        	return false;
-        }
-    }
-
-   /**
 	* Restituisce una rappresentazione stringa di questa stanza,
 	* stampadone la descrizione, le uscite e gli eventuali attrezzi contenuti
 	* @return la rappresentazione stringa
@@ -144,82 +226,4 @@ public class StanzaProtected {
     	return risultato.toString();
     }
 
-    /**
-	* Controlla se un attrezzo esiste nella stanza (uguaglianza sul nome).
-	* @return true se l'attrezzo esiste nella stanza, false altrimenti.
-	*/
-	public boolean hasAttrezzo(String nomeAttrezzo) {
-		boolean trovato;
-		trovato = false;
-		for (Attrezzo attrezzo : this.attrezzi) {
-			if (attrezzo != null) {
-				if (attrezzo.getNome().equals(nomeAttrezzo))
-					trovato = true;
-			}
-		}
-		return trovato;
-	}
-
-	/**
-     * Restituisce l'attrezzo nomeAttrezzo se presente nella stanza.
-	 * @param nomeAttrezzo
-	 * @return l'attrezzo presente nella stanza.
-     * 		   null se l'attrezzo non e' presente.
-	 */
-	public Attrezzo getAttrezzo(String nomeAttrezzo) {
-		Attrezzo attrezzoCercato;
-		attrezzoCercato = null;
-		for (Attrezzo attrezzo : this.attrezzi) {
-			if (attrezzo.getNome().equals(nomeAttrezzo))
-				attrezzoCercato = attrezzo;
-		}
-		return attrezzoCercato;	
-	}
-
-	/**
-	 * Rimuove un attrezzo dalla stanza (ricerca in base al nome).
-	 * @param nomeAttrezzo
-	 * @return true se l'attrezzo e' stato rimosso, false altrimenti
-	 */
-	public Attrezzo removeAttrezzo(String nomeAttrezzo) {
-		
-		Attrezzo a = null;
-		
-		//controlla se la stanza è vuota
-		if(this.isEmpty()) {
-			ioConsole.mostraMessaggio("La stanza è vuota.");
-			return a;
-		}
-		if(this.hasAttrezzo(nomeAttrezzo)) {
-			
-			int i = 0;
-			while (!attrezzi[i].getNome().equals(nomeAttrezzo)){
-				i++;
-			}
-			a = attrezzi[i];
-			for(int j = i; j < numeroAttrezzi-1; j++){
-				attrezzi[j]=attrezzi[j+1];
-			}
-		    attrezzi[numeroAttrezzi-1] = null;
-			numeroAttrezzi--;
-		}
-		else {
-			ioConsole.mostraMessaggio("L'attrezzo non è presente nella stanza.");
-			return a;
-		}
-		
-		return a;
-	}
-
-
-	public String[] getDirezioni() {
-		String[] direzioni = new String[this.numeroStanzeAdiacenti];
-	    for(int i=0; i<this.numeroStanzeAdiacenti; i++)
-	    	direzioni[i] = this.direzioni[i];
-	    return direzioni;
-    }
-	
-	public boolean isEmpty() {
-		return this.numeroAttrezzi == 0;
-	}
 }

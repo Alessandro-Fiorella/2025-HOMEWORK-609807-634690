@@ -5,9 +5,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.DiaDia;
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.comandi.Comando;
@@ -23,21 +26,25 @@ class TestComandoPosa {
 	private Borsa borsa;
 	private Attrezzo attrezzo1;
 	private Attrezzo attrezzo2;
+	private Labirinto labirinto;
 	private IO ioConsole = new IOConsole();
 	
 	@BeforeEach
 	public void setUp() {
 		// Creiamo la stanza, la borsa e la riempiamo con i 3 attrezzi
 		comandoPosa = new ComandoPosa();
-		borsa = new Borsa(3, ioConsole);
-		stanza = new Stanza("test", ioConsole);
+		borsa = new Borsa(3);
+		stanza = new Stanza("test");
 		attrezzo1 = new Attrezzo("A", 1);
 		attrezzo2 = new Attrezzo("B", 2);
 		
-		
-		partita = new Partita(ioConsole);
-		partita.setStanzaCorrente(stanza);
+		labirinto = new LabirintoBuilder()
+				.addStanzaIniziale(stanza)
+				.getLabirinto();		
+		partita = new Partita(labirinto);
 		partita.getGiocatore().setBorsa(borsa);
+		// Soluzione temporanea sporca, si può migliorare
+		DiaDia.setIO(ioConsole);
 	}
 	
 	@Test
@@ -70,11 +77,7 @@ class TestComandoPosa {
 	
 	@Test
 	void testPosaInStanzaPiena() {
-		int numeroAttrezzi = stanza.getAttrezzi().length;
-		for (int i = 0; i < numeroAttrezzi; i++){
-			Attrezzo attrezzo = new Attrezzo("A"+ i, 1);
-			stanza.addAttrezzo(attrezzo);	
-		}
+		while (stanza.addAttrezzo(new Attrezzo()));	// Riempio la stanza	
 		borsa.addAttrezzo(attrezzo1);
 		comandoPosa.setParametro("A");
 		comandoPosa.esegui(partita, ioConsole);

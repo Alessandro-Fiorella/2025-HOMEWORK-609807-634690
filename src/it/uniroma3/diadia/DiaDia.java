@@ -1,5 +1,7 @@
 package it.uniroma3.diadia;
 
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandi;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
@@ -29,27 +31,26 @@ public class DiaDia {
 			"Per conoscere le istruzioni usa il comando 'aiuto'.";
 	
 	private Partita partita;
-	private IO ioConsole;
+	private static IO console;
 	
-	public DiaDia(IO ioConsole) {
-		this.ioConsole = ioConsole;
-		this.partita = new Partita(ioConsole);
+	public DiaDia(Labirinto labirinto, IO console) {
+		DiaDia.console = console;
+		this.partita = new Partita(labirinto);
 	}
 
 	public void gioca() {
 		String istruzione; 
 
-		ioConsole.mostraMessaggio(MESSAGGIO_BENVENUTO);
+		console.mostraMessaggio(MESSAGGIO_BENVENUTO);
 				
 		do		
-			istruzione = ioConsole.leggiRiga();
+			istruzione = console.leggiRiga();
 		while (!processaIstruzione(istruzione));
 	}   
 
 
 	/**
 	 * Processa una istruzione 
-	 *
 	 * @return true se l'istruzione e' eseguita e il gioco continua, false altrimenti
 	 */
 	 
@@ -58,14 +59,14 @@ public class DiaDia {
 		Comando comandoDaEseguire;
 		FabbricaDiComandi factory = new FabbricaDiComandiFisarmonica();
 		
-		comandoDaEseguire = factory.costruisciComando(istruzione, ioConsole);
-		comandoDaEseguire.esegui(this.partita, ioConsole);
+		comandoDaEseguire = factory.costruisciComando(istruzione, console);
+		comandoDaEseguire.esegui(this.partita, console);
 		
 		if (this.partita.vinta())
-			ioConsole.mostraMessaggio("Hai vinto!");
+			console.mostraMessaggio("Hai vinto!");
 			
 		if (!this.partita.giocatoreisVivo())
-			ioConsole.mostraMessaggio("Hai esaurito i CFU...");
+			console.mostraMessaggio("Hai esaurito i CFU...");
 			
 		return this.partita.isFinita();
 	}
@@ -73,10 +74,25 @@ public class DiaDia {
 	public Partita getPartita() {
 		return partita;
 	}
+	
+	public static IO getIO() {
+		return console;
+	}
+	
+	public static void setIO(IO io) {
+		console = io;
+	}
+
 
 	public static void main(String[] argc) {
-		IO ioConsole = new IOConsole();
-		DiaDia gioco = new DiaDia(ioConsole);
+		IO console = new IOConsole();
+		Labirinto labirinto = new LabirintoBuilder()
+								.addStanzaIniziale("Atrio")
+								.addAttrezzo("osso", 3)
+								.addStanzaVincente("Biblioteca")
+								.addAdiacenza("Atrio", "Biblioteca", "nord")
+								.getLabirinto();
+		DiaDia gioco = new DiaDia(labirinto, console);
 		gioco.gioca();
 	}
 }

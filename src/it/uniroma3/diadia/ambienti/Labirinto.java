@@ -8,25 +8,26 @@ public class Labirinto {
 	private Stanza stanzaIniziale;
 	private Stanza stanzaVincente;
 	
-	public Labirinto(IO ioConsole) {
-		creaStanze(ioConsole);
+	// TODO: Voglio implementare qui la logica di gestione degli attrezzi doppioni tramite un set probabilmente
+	public Labirinto() {
+		creaStanze();
 	}
 	
 	/**
     * Crea tutte le stanze e le porte di collegamento
     */
-	protected void creaStanze(IO ioConsole) {
+	protected void creaStanze() {
 
 	    /* crea gli attrezzi */
 	    Attrezzo chiave = new Attrezzo("chiave", 1);
 	    Attrezzo libro = new Attrezzo("libro", 2);
 
 	    /* crea stanze del labirinto */
-	    Stanza cortile = new Stanza("Cortile", ioConsole);
-	    Stanza mensa = new Stanza("Mensa", ioConsole);
-	    Stanza segreteria = new Stanza("Segreteria", ioConsole);
-	    Stanza aulaStudio = new Stanza("Aula Studio", ioConsole);
-	    Stanza aulaMagna = new StanzaBloccata("Aula Magna", "est", "chiave", ioConsole); // bloccata ad est
+	    Stanza cortile = new Stanza("Cortile");
+	    Stanza mensa = new Stanza("Mensa");
+	    Stanza segreteria = new Stanza("Segreteria");
+	    Stanza aulaStudio = new Stanza("Aula Studio");
+	    Stanza aulaMagna = new StanzaBloccata("Aula Magna", "est", "chiave"); // bloccata ad est
 
 	    /* collega le stanze */
 	    cortile.impostaStanzaAdiacente("nord", mensa);

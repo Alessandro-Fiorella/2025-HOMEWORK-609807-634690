@@ -5,10 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
-
-import it.uniroma3.diadia.IO;
-import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.ambienti.StanzaBloccata;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.ambienti.Stanza;
@@ -21,20 +17,16 @@ class TestStanzaBloccata {
 	private Stanza stanzaAdiacente1;
 	private Stanza stanzaAdiacente2;
 	
-	private IO ioConsole = new IOConsole();
-	
-	
 	
 	@BeforeEach
 	public void setUp(){
-		stanzaBloccata = new StanzaBloccata("Atrio", "nord", "A", ioConsole);
-		stanzaAdiacente1 = new Stanza("N11", ioConsole);
-		stanzaAdiacente2 = new Stanza("N12", ioConsole);
+		stanzaBloccata = new StanzaBloccata("Atrio", "A", "nord");
+		stanzaAdiacente1 = new Stanza("N11");
+		stanzaAdiacente2 = new Stanza("N12");
 		attrezzo1 = new Attrezzo("A", 1);
 		attrezzo2 = new Attrezzo("B", 2);
 		stanzaBloccata.impostaStanzaAdiacente("nord", stanzaAdiacente1);
 		stanzaBloccata.impostaStanzaAdiacente("sud", stanzaAdiacente2);
-
 	}
 	
 	@Test

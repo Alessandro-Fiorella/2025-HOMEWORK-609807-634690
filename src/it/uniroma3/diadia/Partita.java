@@ -21,9 +21,9 @@ public class Partita {
 	private Stanza stanzaVincente;
 	private boolean finita;
 	
-	public Partita(IO ioConsole){
-		labirinto = new Labirinto(ioConsole);
-		giocatore = new Giocatore(ioConsole);
+	public Partita(Labirinto labirinto){
+		this.labirinto = labirinto;
+		giocatore = new Giocatore();
 		stanzaCorrente = labirinto.getStanzaIniziale();
 		stanzaVincente = labirinto.getStanzaVincente();
 		this.finita = false;

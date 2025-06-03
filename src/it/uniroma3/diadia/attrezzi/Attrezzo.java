@@ -1,6 +1,8 @@
 //lallo
 package it.uniroma3.diadia.attrezzi;
 
+import java.util.Comparator;
+
 import it.uniroma3.diadia.ambienti.Stanza;
 
 /**
@@ -27,6 +29,11 @@ public class Attrezzo {
 		this.peso = peso;
 		this.nome = nome;
 	}
+	
+	public Attrezzo() {
+		this.peso = 1;
+		this.nome = "Null";
+	}
 
 	/**
 	 * Restituisce il nome identificatore dell'attrezzo
@@ -51,5 +58,44 @@ public class Attrezzo {
 	public String toString() {
 		return this.getNome()+" ("+this.getPeso()+"kg)";
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o == null) return false;
+		
+		Attrezzo that = (Attrezzo) o;
+		return this.getNome().equals(that.getNome()) &&
+				this.getPeso() == that.getPeso();
+	}
+	
+	@Override
+	public int hashCode() {
+		return this.getNome().hashCode() + this.getPeso();
+	}
+	
+	public static class ComparatorePerNome implements Comparator<Attrezzo> {
+		@Override
+        public int compare(Attrezzo a1, Attrezzo a2) {
+            return a1.nome.compareTo(a2.nome);
+        }
+    }
+
+    public static class ComparatorePerPeso implements Comparator<Attrezzo> {
+    	@Override
+        public int compare(Attrezzo a1, Attrezzo a2) {
+            return Integer.compare(a1.peso, a2.peso);
+        }
+    }
+    
+    public static class ComparatorePerPesoPoiPerNome implements Comparator<Attrezzo> {
+    	@Override
+        public int compare(Attrezzo a1, Attrezzo a2) {
+            int output = Integer.compare(a1.peso, a2.peso);
+            if (output == 0) {
+            	return a1.nome.compareTo(a2.nome);
+            }
+            return output;
+        }
+    }
 
 }

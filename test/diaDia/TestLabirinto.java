@@ -3,19 +3,15 @@ package diaDia;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import it.uniroma3.diadia.IO;
-import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.ambienti.Labirinto;
 
 class TestLabirinto {
 
-	private IO ioConsole = new IOConsole();
 	private Labirinto labirinto;
 
 	@BeforeEach
 	public void setUp() {
-		labirinto = new Labirinto(ioConsole);
+		labirinto = new Labirinto();
 	}
 
 	@Test

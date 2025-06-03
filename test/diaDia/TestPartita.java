@@ -4,21 +4,27 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import it.uniroma3.diadia.IO;
-import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
 
 import org.junit.jupiter.api.BeforeEach;
 
 class TestPartita {
 	private Partita partita;
-	private IO ioConsole = new IOConsole();
+	private Labirinto labirinto;
 
 	
 	@BeforeEach
 	public void setUp() {
-		partita = new Partita(ioConsole);
+		labirinto = new LabirintoBuilder()
+				.addStanzaIniziale("Atrio")
+				.addAttrezzo("osso", 1)
+				.addStanzaVincente("Biblioteca")
+				.addAdiacenza("Atrio", "Biblioteca", "nord")
+				.getLabirinto();
+		partita = new Partita(labirinto);
 	}
 	
 	@Test
@@ -61,14 +67,14 @@ class TestPartita {
 	@Test
 	void testPartitaNonTerminata() {
 		partita.getGiocatore().setCfu(15);
-		partita.setStanzaCorrente(new Stanza("Nuova Stanza",ioConsole));
+		partita.setStanzaCorrente(new Stanza("Nuova Stanza"));
 		assertFalse(partita.isFinita());
 	}
 	
 	// Test: funzione setStanzaCorrente
 	@Test
 	void testImpostaStanzaCorrente() {	    
-	    Stanza nuovaStanza = new Stanza("Nuova Stanza",ioConsole);
+	    Stanza nuovaStanza = new Stanza("Nuova Stanza");
 	    partita.setStanzaCorrente(nuovaStanza);	    
 	    assertEquals("Nuova Stanza", partita.getStanzaCorrente().getNome(), "La stanza corrente dovrebbe essere la 'Nuova Stanza'");
 	}

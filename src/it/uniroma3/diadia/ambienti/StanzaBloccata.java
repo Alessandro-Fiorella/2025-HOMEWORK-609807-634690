@@ -1,20 +1,21 @@
 package it.uniroma3.diadia.ambienti;
 
-import it.uniroma3.diadia.IO;
-
+/**
+ * Stanza con le direzioni bloccate almeno che non si abbia lo strumento giusto
+ */
 public class StanzaBloccata extends Stanza {
 	
 	private String direzioneBloccata;
 	private String attrezzoSblocco;
 	
-	public StanzaBloccata(String nome, int massimoAttrezzi, String direzioneBloccata, String attrezzoSblocco, IO ioConsole){
-		super(nome, massimoAttrezzi, ioConsole);	// Uso il costruttore della stanza
+	public StanzaBloccata(String nome, String attrezzoSblocco, String direzioneBloccata, int massimoAttrezzi){
+		super(nome, massimoAttrezzi);	// Uso il costruttore della stanza
 		this.direzioneBloccata = direzioneBloccata; //direzione bloccata dalla stanza
 		this.attrezzoSblocco = attrezzoSblocco; //attrezzio con cui sbloccare
 	}
 	
-	public StanzaBloccata(String nome, String direzioneBloccata, String attrezzoSblocco, IO ioConsole) {
-		this(nome, NUMERO_MASSIMO_ATTREZZI, direzioneBloccata, attrezzoSblocco, ioConsole);
+	public StanzaBloccata(String nome, String attrezzoSblocco, String direzioneBloccata) {
+		this(nome, attrezzoSblocco, direzioneBloccata, NUMERO_MASSIMO_ATTREZZI);
 	}
 	
 	@Override

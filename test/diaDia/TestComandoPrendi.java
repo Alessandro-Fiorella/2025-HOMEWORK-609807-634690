@@ -5,8 +5,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.DiaDia;
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.comandi.Comando;
@@ -22,6 +25,7 @@ class TestComandoPrendi {
 	private Attrezzo attrezzo1;
 	private Attrezzo attrezzo2;
 	private Attrezzo attrezzo3;
+	private Labirinto labirinto;
 	private IO ioConsole = new IOConsole();
 	private Partita partita;
 	
@@ -29,23 +33,25 @@ class TestComandoPrendi {
 	public void setUp() {
 		// Creiamo la borsa, la stanza e i 3 attrezzi
 		comandoPrendi = new ComandoPrendi();
-		borsa = new Borsa(3, ioConsole);
-		stanza = new Stanza("test", ioConsole);
+		borsa = new Borsa(3);	// Peso massimo 3
+		stanza = new Stanza("test");
 		attrezzo1 = new Attrezzo("A", 1);
 		attrezzo2 = new Attrezzo("B", 2);
 		attrezzo3 = new Attrezzo("C", 3);
-		
-		partita = new Partita(ioConsole);
-		partita.setStanzaCorrente(stanza);
+		labirinto = new LabirintoBuilder()
+				.addStanzaIniziale(stanza)
+				.getLabirinto();	
+		partita = new Partita(labirinto);
 		partita.getGiocatore().setBorsa(borsa);
 		
+		DiaDia.setIO(ioConsole);	// Soluzione temporanea sporca
 	}
 	
 	@Test
 	void testPrendiAttrezzoStanzaVuota() {
 		comandoPrendi.setParametro("A");
 		comandoPrendi.esegui(partita, ioConsole);
-		assertFalse(borsa.hasAttrezzo("A")&&stanza.hasAttrezzo("A"));
+		assertTrue(!borsa.hasAttrezzo("A")&&!stanza.hasAttrezzo("A"));	// L'oggetto non è stato spostato in borsa nè creato per sbaglio in stanza
 	}
 	
 	@Test
@@ -57,8 +63,8 @@ class TestComandoPrendi {
 	}
 	
 	@Test
-	void testPosaDueAttrezzi() {
-		stanza.addAttrezzo(attrezzo1);	
+	void testPrendiDueAttrezzi() {
+		stanza.addAttrezzo(attrezzo1);
 		stanza.addAttrezzo(attrezzo2);
 		comandoPrendi.setParametro("A");
 		comandoPrendi.esegui(partita, ioConsole);

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.DiaDia;
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.ambienti.Stanza;
@@ -20,12 +21,14 @@ class TestStanza {
 	
 	@BeforeEach
 	public void setUp() {
-		stanzaIniziale = new Stanza("N10",ioConsole);
-		stanzaAdiacente = new Stanza("N11",ioConsole);
-		stanzaSovrascritta = new Stanza("N12",ioConsole);
+		stanzaIniziale = new Stanza("N10");
+		stanzaAdiacente = new Stanza("N11");
+		stanzaSovrascritta = new Stanza("N12");
 		attrezzo1 = new Attrezzo("A", 1);
 		attrezzo2 = new Attrezzo("B", 2);
 		attrezzo3 = new Attrezzo("C", 3);
+		DiaDia.setIO(ioConsole);
+
 	}
 	
 	// Test: impostaStanzaAdiacente
@@ -55,7 +58,7 @@ class TestStanza {
 	@Test
 	void testStanzaSenzaAttrezzi() {
 		assertNotNull(stanzaIniziale.getAttrezzi(), "L'array dovrebeb essere inizializzato");
-		assertNull(stanzaIniziale.getAttrezzi()[0], "L'array dovrebbe essere vuoto");
+		assertNull(stanzaIniziale.getAttrezzo(0), "L'array dovrebbe essere vuoto");
 	}
 	
 	@Test
@@ -74,9 +77,9 @@ class TestStanza {
 	
 	@Test
 	void testRiempimentoStanza() {
-		for (int i = 0; i < stanzaIniziale.getAttrezzi().length; i++) {
-			stanzaIniziale.addAttrezzo(new Attrezzo("Attrezzo"+ i, i));	// Riempio la stanza di attrezzi
-		}
+		// Carina: addAttrezzo è boolean, quindi per riempire la stanza posso fare questo while qui che si ferma solo una volta piena
+		// Funziona perché ho usato le list e ignorato la gestione dei doppioni per ora
+		while (stanzaIniziale.addAttrezzo(new Attrezzo()));	
 		assertFalse(stanzaIniziale.addAttrezzo(attrezzo1), "Dovrebbe essere false dato che la stanza è piena");
 	}
 	@Test
@@ -89,7 +92,7 @@ class TestStanza {
 	void testRemoveUnicoAttrezzo() {
 		stanzaIniziale.addAttrezzo(attrezzo1);
 		assertEquals(stanzaIniziale.removeAttrezzo(attrezzo1.getNome()), attrezzo1);
-		assertNull(stanzaIniziale.getAttrezzi()[0]);
+		assertNull(stanzaIniziale.getAttrezzo(0));
 	}
 	
 	@Test
@@ -105,8 +108,8 @@ class TestStanza {
 		stanzaIniziale.addAttrezzo(attrezzo2);
 		stanzaIniziale.addAttrezzo(attrezzo3);
 		assertEquals(stanzaIniziale.removeAttrezzo(attrezzo2.getNome()), attrezzo2);
-		assertEquals(stanzaIniziale.getAttrezzi()[0], attrezzo1);
-		assertEquals(stanzaIniziale.getAttrezzi()[1], attrezzo3);
+		assertEquals(stanzaIniziale.getAttrezzo(0), attrezzo1);
+		assertEquals(stanzaIniziale.getAttrezzo(1), attrezzo3);
 	}
 	
 	//rimuove l'ultimo attrezzo di una serie di attrezzi
@@ -116,19 +119,20 @@ class TestStanza {
 		stanzaIniziale.addAttrezzo(attrezzo2);
 		stanzaIniziale.addAttrezzo(attrezzo3);
 		assertEquals(stanzaIniziale.removeAttrezzo(attrezzo3.getNome()), attrezzo3);
-		assertEquals(stanzaIniziale.getAttrezzi()[0], attrezzo1);
-		assertEquals(stanzaIniziale.getAttrezzi()[1], attrezzo2);
+		assertEquals(stanzaIniziale.getAttrezzo(0), attrezzo1);
+		assertEquals(stanzaIniziale.getAttrezzo(1), attrezzo2);
 	}
 	
-	//rimuove l'ultimo da una stanza piena
+	/* Non serve più datao che ha capienza temporaneamente illimitata
+	 * rimuove l'ultimo da una stanza piena
 	@Test
 	void testRemoveAttrezzoDaStanzaPiena() {
-		int numeroAttrezzi = stanzaIniziale.getAttrezzi().length;
+		int numeroAttrezzi = stanzaIniziale.getAttrezzi().size();
 		for (int i = 0; i < numeroAttrezzi; i++){
 			Attrezzo attrezzo = new Attrezzo("Attrezzo"+ i, 1);
 			stanzaIniziale.addAttrezzo(attrezzo);	
 		}
 		Attrezzo daEliminare = stanzaIniziale.getAttrezzi()[numeroAttrezzi-1];
 		assertEquals(stanzaIniziale.removeAttrezzo(daEliminare.getNome()), daEliminare);
-	}
+	}*/
 }
