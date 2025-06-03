@@ -12,14 +12,14 @@ import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
-import it.uniroma3.diadia.comandi.Comando;
+import it.uniroma3.diadia.comandi.AbstractComando;
 import it.uniroma3.diadia.giocatore.Borsa;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.comandi.ComandoPrendi;
 
 class TestComandoPrendi {
 
-	private Comando comandoPrendi;
+	private AbstractComando comandoPrendi;
 	private Stanza stanza;
 	private Borsa borsa;
 	private Attrezzo attrezzo1;

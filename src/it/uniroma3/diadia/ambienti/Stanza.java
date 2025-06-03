@@ -2,6 +2,8 @@ package it.uniroma3.diadia.ambienti;
 
 import it.uniroma3.diadia.DiaDia;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.personaggi.AbstractPersonaggio;
+
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
@@ -31,6 +33,8 @@ public class Stanza {
     private int numeroStanzeAdiacenti;
     
 	private String[] direzioni;
+	
+	private AbstractPersonaggio personaggio;
 		
     
     /**
@@ -184,19 +188,19 @@ public class Stanza {
     	return direzioni2stanze;
     }
     
-    public List<Stanza> getListaStanze(){
+    public List<Stanza> getListaStanzeAdiacenti(){
     	return new ArrayList<>(direzioni2stanze.values());
     }
-
-    /**
-     * Restituisce la descrizione della stanza.
-     * @return la descrizione della stanza
-     */
-    public String getDescrizione() {
-        return this.toString();
-    }
-
     
+    
+	public void setPersonaggio(AbstractPersonaggio personaggio) {
+		this.personaggio = personaggio;
+	}
+
+	public AbstractPersonaggio getPersonaggio() {
+		return this.personaggio;
+	}
+  
 	
     
     @Override
@@ -213,9 +217,16 @@ public class Stanza {
     
     @Override
     public int hashCode() {
-    	return this.getNome().hashCode() +
+    	return 	this.getClass().hashCode() +
+    			this.getNome().hashCode() +
     			this.getMassimoAttrezzi();
     }
+    
+    
+    public String getDescrizione() {
+        return this.toString();
+    }  
+    
 	/**
 	* Restituisce una rappresentazione stringa di questa stanza,
 	* stampadone la descrizione, le uscite e gli eventuali attrezzi contenuti

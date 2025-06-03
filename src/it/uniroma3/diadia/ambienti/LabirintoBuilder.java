@@ -1,10 +1,9 @@
 package it.uniroma3.diadia.ambienti;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.personaggi.AbstractPersonaggio;
 
 public class LabirintoBuilder {
 
@@ -112,6 +111,16 @@ public class LabirintoBuilder {
     	return this;
     }
     
+    public LabirintoBuilder addAdiacenza(String nomeStanza1, String nomeStanza2, String direzione) {
+        Stanza stanza1 = this.nome2stanza.get(nomeStanza1);
+        Stanza stanza2 = this.nome2stanza.get(nomeStanza2);
+
+        if (stanza1 != null && stanza2 != null) {
+            stanza1.impostaStanzaAdiacente(direzione, stanza2);
+        }
+        return this;
+    }
+    
     public LabirintoBuilder addAttrezzo(String nome, int peso) {
         if (this.ultimaStanzaAggiunta != null) {
             this.ultimaStanzaAggiunta.addAttrezzo(new Attrezzo(nome, peso));
@@ -124,17 +133,11 @@ public class LabirintoBuilder {
         }
         return this;
     }
-    
-    public LabirintoBuilder addAdiacenza(String nomeStanza1, String nomeStanza2, String direzione) {
-        Stanza stanza1 = this.nome2stanza.get(nomeStanza1);
-        Stanza stanza2 = this.nome2stanza.get(nomeStanza2);
 
-        if (stanza1 != null && stanza2 != null) {
-            stanza1.impostaStanzaAdiacente(direzione, stanza2);
+    public LabirintoBuilder addPersonaggio(AbstractPersonaggio personaggio) {
+    	if (this.ultimaStanzaAggiunta != null) {
+            this.ultimaStanzaAggiunta.setPersonaggio(personaggio);
         }
         return this;
     }
-
-
-
 }

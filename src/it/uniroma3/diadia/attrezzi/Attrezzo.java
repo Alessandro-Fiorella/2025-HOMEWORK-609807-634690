@@ -35,20 +35,20 @@ public class Attrezzo {
 		this.nome = "Null";
 	}
 
-	/**
-	 * Restituisce il nome identificatore dell'attrezzo
-	 * @return il nome identificatore dell'attrezzo
-	 */
 	public String getNome() {
 		return this.nome;
 	}
 
-	/**
-	 * Restituisce il peso dell'attrezzo
-	 * @return il peso dell'attrezzo
-	 */
 	public int getPeso() {
 		return this.peso;
+	}
+	
+	public int setPeso(int peso) {
+		return this.peso;
+	}
+	
+	public void diminuisciPeso() {
+		peso--;
 	}
 
 	/**
@@ -59,18 +59,20 @@ public class Attrezzo {
 		return this.getNome()+" ("+this.getPeso()+"kg)";
 	}
 	
+	/**
+	 * Come unico parametro si usa il nome, non voglio due oggetti con uguale nome ma pesi diversi
+	 */
 	@Override
 	public boolean equals(Object o) {
 		if (o == null) return false;
 		
 		Attrezzo that = (Attrezzo) o;
-		return this.getNome().equals(that.getNome()) &&
-				this.getPeso() == that.getPeso();
+		return this.getNome().equals(that.getNome());
 	}
 	
 	@Override
 	public int hashCode() {
-		return this.getNome().hashCode() + this.getPeso();
+		return this.getNome().hashCode();
 	}
 	
 	public static class ComparatorePerNome implements Comparator<Attrezzo> {

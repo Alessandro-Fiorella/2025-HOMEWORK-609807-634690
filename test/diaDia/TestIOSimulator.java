@@ -2,6 +2,8 @@ package diaDia;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.DiaDia;
@@ -20,8 +22,8 @@ class TestIOSimulator {
 
     @Test
     public void testVittoria() {
-        String vittoria[] = {
-        		"prendi osso", "vai sud", "vai est", "vai est", "vai nord"};
+        List<String> vittoria = List.of(
+        		"prendi osso", "vai sud", "vai est", "vai est", "vai nord");
 
         ioSimulator = new IOSimulator(vittoria);
         labirinto = new LabirintoBuilder()

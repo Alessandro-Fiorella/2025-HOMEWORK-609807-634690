@@ -77,9 +77,8 @@ class TestStanza {
 	
 	@Test
 	void testRiempimentoStanza() {
-		// Carina: addAttrezzo è boolean, quindi per riempire la stanza posso fare questo while qui che si ferma solo una volta piena
-		// Funziona perché ho usato le list e ignorato la gestione dei doppioni per ora
-		while (stanzaIniziale.addAttrezzo(new Attrezzo()));	
+		int i = 0;	// Sfrutto il fatto che addAttrezzo sia boolean, e aggiungo attrezzo0, attrezzo1 ... fino a riempimento
+		while (stanzaIniziale.addAttrezzo(new Attrezzo("attrezzo" + i, 1))) i++;
 		assertFalse(stanzaIniziale.addAttrezzo(attrezzo1), "Dovrebbe essere false dato che la stanza è piena");
 	}
 	@Test

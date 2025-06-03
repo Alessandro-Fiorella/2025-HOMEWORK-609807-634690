@@ -13,14 +13,14 @@ import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
-import it.uniroma3.diadia.comandi.Comando;
+import it.uniroma3.diadia.comandi.AbstractComando;
 import it.uniroma3.diadia.comandi.ComandoPosa;
 import it.uniroma3.diadia.giocatore.Borsa;
 
 class TestComandoPosa {
 	
 	
-	private Comando comandoPosa;
+	private AbstractComando comandoPosa;
 	private Partita partita;
 	private Stanza stanza;
 	private Borsa borsa;
@@ -77,7 +77,8 @@ class TestComandoPosa {
 	
 	@Test
 	void testPosaInStanzaPiena() {
-		while (stanza.addAttrezzo(new Attrezzo()));	// Riempio la stanza	
+		int i = 0;	// Sfrutto il fatto che addAttrezzo sia boolean, e aggiungo attrezzo0, attrezzo1 ... fino a riempimento
+		while (stanza.addAttrezzo(new Attrezzo("attrezzo" + i, 1))) i++;
 		borsa.addAttrezzo(attrezzo1);
 		comandoPosa.setParametro("A");
 		comandoPosa.esegui(partita, ioConsole);

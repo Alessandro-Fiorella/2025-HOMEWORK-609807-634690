@@ -29,6 +29,14 @@ public class Giocatore {
 		this.cfu--;
 	}
 	
+	public void toglinCfu(int quantity) {
+		this.cfu -= quantity;
+	}
+	
+	public void addnCfu(int quantity) {
+		this.cfu += quantity;
+	}
+	
 	public Borsa getBorsa() {
 		return this.borsa;
 	}

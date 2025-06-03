@@ -2,9 +2,10 @@ package it.uniroma3.diadia;
 
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.LabirintoBuilder;
-import it.uniroma3.diadia.comandi.Comando;
+import it.uniroma3.diadia.comandi.AbstractComando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandi;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
+import it.uniroma3.diadia.personaggi.*;
 
 /**
  * Classe principale di diadia, un semplice gioco di ruolo ambientato al dia.
@@ -56,10 +57,10 @@ public class DiaDia {
 	 
 	private boolean processaIstruzione(String istruzione) {
 	
-		Comando comandoDaEseguire;
+		AbstractComando comandoDaEseguire;
 		FabbricaDiComandi factory = new FabbricaDiComandiFisarmonica();
 		
-		comandoDaEseguire = factory.costruisciComando(istruzione, console);
+		comandoDaEseguire = factory.costruisciComando(istruzione);
 		comandoDaEseguire.esegui(this.partita, console);
 		
 		if (this.partita.vinta())
@@ -89,8 +90,18 @@ public class DiaDia {
 		Labirinto labirinto = new LabirintoBuilder()
 								.addStanzaIniziale("Atrio")
 								.addAttrezzo("osso", 3)
+								.addPersonaggio(new Mago("Pic", 5))
+								.addStanza("N11")
+								.addPersonaggio(new Strega())
+								.addStanza("N12")
+								.addPersonaggio(new Cane())
 								.addStanzaVincente("Biblioteca")
-								.addAdiacenza("Atrio", "Biblioteca", "nord")
+								.addAdiacenza("Atrio", "N11", "nord")
+								.addAdiacenza("N11", "Atrio", "sud")
+								.addAdiacenza("N11", "N12", "nord")
+								.addAdiacenza("N12", "N11", "sud")
+								.addAdiacenza("N12", "Biblioteca", "nord")
+								.addAdiacenza("Biblioteca", "N12", "sud")
 								.getLabirinto();
 		DiaDia gioco = new DiaDia(labirinto, console);
 		gioco.gioca();

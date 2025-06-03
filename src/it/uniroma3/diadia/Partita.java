@@ -51,7 +51,7 @@ public class Partita {
 	 * @return vero se partita finita
 	 */
 	public boolean isFinita() {
-		return finita || vinta() || this.getGiocatore().getCfu() == 0;
+		return finita || vinta() || this.getGiocatore().getCfu() <= 0;
 	}
 
 	/**
@@ -75,6 +75,6 @@ public class Partita {
 	}
 	
 	public Boolean giocatoreisVivo() {
-		return this.getGiocatore().getCfu() != 0;
+		return this.getGiocatore().getCfu() > 0;
 	}
 }

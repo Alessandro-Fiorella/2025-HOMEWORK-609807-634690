@@ -1,15 +1,11 @@
 package it.uniroma3.diadia.comandi;
 
-import it.uniroma3.diadia.IO;
-
-
-
 public class FabbricaDiComandiFisarmonica implements FabbricaDiComandi {
 	
-	public Comando costruisciComando(String istruzione, IO ioConsole) {
+	public AbstractComando costruisciComando(String istruzione) {
 		String nomeComando = null;
 		String parametro = null;
-		Comando comando = null;
+		AbstractComando comando = null;
 				
 		String[] parole = istruzione.trim().split("\\s+"); // Dividiamo il comando nelle sue parole
 
@@ -18,7 +14,8 @@ public class FabbricaDiComandiFisarmonica implements FabbricaDiComandi {
 
 	    if (parole.length > 1)
 	        parametro = parole[1];		
-			
+		
+	    // Settiamo il tipo di comando
 		if (nomeComando.equals("vai")) 
 			comando = new ComandoVai();
 			
@@ -37,10 +34,20 @@ public class FabbricaDiComandiFisarmonica implements FabbricaDiComandi {
 		else if (nomeComando.equals("aiuto"))
 			comando = new ComandoAiuto();
 		
+		else if (nomeComando.equals("interagisci"))
+			comando = new ComandoInteragisci();
+		
+		else if (nomeComando.equals("saluta"))
+			comando = new ComandoSaluta();
+		
+		else if (nomeComando.equals("regala"))
+			comando = new ComandoRegala();
+		
 		else {
 			comando = new ComandoNonValido();
 		}
 		
+		// Solo alla fine settiamo il parametro
 		comando.setParametro(parametro);
 		return comando;
 	}
