@@ -11,7 +11,12 @@ class TestLabirinto {
 
 	@BeforeEach
 	public void setUp() {
-		labirinto = new Labirinto();
+		labirinto = new Labirinto.LabirintoBuilder()
+				.addStanzaIniziale("Cortile")
+				.addStanzaVincente("Aula Magna")
+				.addStanza("Mensa")
+				.addAdiacenza("Cortile", "Mensa", "nord")
+				.getLabirinto();
 	}
 
 	@Test

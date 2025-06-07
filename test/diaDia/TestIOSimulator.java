@@ -11,7 +11,6 @@ import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.IOSimulator;
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 
 class TestIOSimulator {
 
@@ -26,7 +25,7 @@ class TestIOSimulator {
         		"prendi osso", "vai sud", "vai est", "vai est", "vai nord");
 
         ioSimulator = new IOSimulator(vittoria);
-        labirinto = new LabirintoBuilder()
+        labirinto = new Labirinto.LabirintoBuilder()
 				.addStanzaIniziale("Atrio")
 				.addAttrezzo("osso", 1)
 				.addStanzaVincente("Biblioteca")

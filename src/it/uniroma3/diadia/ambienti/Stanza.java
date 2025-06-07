@@ -29,10 +29,8 @@ public class Stanza {
     protected List<Attrezzo> attrezzi;
     private int massimoAttrezzi;
     
-    private Map<String, Stanza> direzioni2stanze;
+    private Map<Direzione, Stanza> direzioni2stanze;
     private int numeroStanzeAdiacenti;
-    
-	private String[] direzioni;
 	
 	private AbstractPersonaggio personaggio;
 		
@@ -45,7 +43,6 @@ public class Stanza {
     	this.nome = nome;
     	this.massimoAttrezzi = massimoAttrezzi;
         this.numeroStanzeAdiacenti = 0;
-        this.direzioni = new String[NUMERO_MASSIMO_DIREZIONI];
         this.direzioni2stanze = new HashMap<>();
         this.attrezzi = new ArrayList<>();
     }
@@ -63,7 +60,7 @@ public class Stanza {
     public void impostaStanzaAdiacente(String direzione, Stanza stanza) {
     	// Aggiunge la direzione e la stanza o eventualmente aggiorna la stanza
     	if(numeroStanzeAdiacenti < NUMERO_MASSIMO_DIREZIONI) {
-    		direzioni2stanze.put(direzione, stanza); 	
+    		direzioni2stanze.put(Direzione.fromString(direzione), stanza); 	
         	numeroStanzeAdiacenti++;
     	}
     }
@@ -73,7 +70,7 @@ public class Stanza {
      * @param direzione
      */
 	public Stanza getStanzaAdiacente(String direzione) {
-        return direzioni2stanze.get(direzione);
+        return direzioni2stanze.get(Direzione.fromString(direzione));
 	}
 
     /**
@@ -176,7 +173,7 @@ public class Stanza {
     	return this.numeroStanzeAdiacenti;
     }
     
-    public List<String> getDirezioni() {
+    public List<Direzione> getDirezioni() {
 	    return new ArrayList<>(direzioni2stanze.keySet());
     }
     
@@ -184,7 +181,7 @@ public class Stanza {
         return this.attrezzi;
     }
     
-    public Map<String, Stanza> getMapStanzeAdiacenti(){
+    public Map<Direzione, Stanza> getMapStanzeAdiacenti(){
     	return direzioni2stanze;
     }
     
@@ -237,7 +234,7 @@ public class Stanza {
     	StringBuilder risultato = new StringBuilder();
     	risultato.append(this.nome);
     	risultato.append("\nUscite: ");
-    	for (String direzione : this.direzioni)
+    	for (Direzione direzione : this.direzioni2stanze.keySet())
     		if (direzione!=null)
     			risultato.append(" " + direzione);
     	risultato.append("\nAttrezzi nella stanza: ");

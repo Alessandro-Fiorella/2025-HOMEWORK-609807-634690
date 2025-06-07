@@ -1,5 +1,6 @@
 package it.uniroma3.diadia.giocatore;
 
+import it.uniroma3.diadia.Configuratore;
 import it.uniroma3.diadia.DiaDia;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class Borsa {
-	public final static int DEFAULT_PESO_MAX_BORSA = 10;
+
 	private List<Attrezzo> attrezzi;
 	private int pesoMax;
 	
@@ -23,7 +24,7 @@ public class Borsa {
 	}
 	
 	public Borsa() {
-		this(DEFAULT_PESO_MAX_BORSA);
+		this(Configuratore.getPesoBorsaMax());
 	}
 	
 	public boolean addAttrezzo(Attrezzo attrezzo) {
